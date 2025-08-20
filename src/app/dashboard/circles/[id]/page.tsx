@@ -17,9 +17,9 @@ import { prisma } from "@/lib/db";
 import { formatDate, formatCurrency } from "@/lib/utils";
 
 interface CirclePageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function CirclePage({ params }: CirclePageProps) {

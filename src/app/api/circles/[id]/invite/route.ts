@@ -90,7 +90,7 @@ export async function POST(
     console.error('Error inviting user:', error);
     
     if (error instanceof z.ZodError) {
-      return NextResponse.json({ error: 'Invalid input data', details: error.errors }, { status: 400 });
+      return NextResponse.json({ error: 'Invalid input data', details: error.issues }, { status: 400 });
     }
 
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });

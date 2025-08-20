@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Users, CheckCircle, AlertTriangle } from "lucide-react";
@@ -17,6 +17,21 @@ interface Circle {
 }
 
 export default function JoinCirclePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50 dark:from-neutral-950 dark:via-neutral-900 dark:to-neutral-950 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    }>
+      <JoinCircleContent />
+    </Suspense>
+  );
+}
+
+function JoinCircleContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [circle, setCircle] = useState<Circle | null>(null);

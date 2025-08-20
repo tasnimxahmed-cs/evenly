@@ -1,4 +1,4 @@
-import { Configuration, PlaidApi, PlaidEnvironments, Products, CountryCode, AccountSubtype } from 'plaid';
+import { Configuration, PlaidApi, PlaidEnvironments, Products, CountryCode, DepositoryAccountSubtype } from 'plaid';
 
 const configuration = new Configuration({
   basePath: PlaidEnvironments.sandbox,
@@ -22,7 +22,7 @@ export async function createLinkToken(userId: string) {
     language: 'en',
     account_filters: {
       depository: {
-        account_subtypes: ['checking', 'savings'] as AccountSubtype[],
+        account_subtypes: ['checking', 'savings'] as DepositoryAccountSubtype[],
       },
     },
   };

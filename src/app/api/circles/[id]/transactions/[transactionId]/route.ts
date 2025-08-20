@@ -180,7 +180,7 @@ export async function PATCH(
           where: { circleId: id },
           include: { user: true },
         });
-        const amountPerPerson = validatedData.amount / circleMembers.length;
+        const amountPerPerson = (validatedData.amount || 0) / circleMembers.length;
         splits = circleMembers.map(member => ({
           transactionId,
           userId: member.user.id,
@@ -188,19 +188,19 @@ export async function PATCH(
         }));
       } else if (validatedData.splitType === 'PERCENTAGE') {
         // Use provided percentages
-        splits = validatedData.splits.map(split => ({
+        splits = validatedData.splits?.map(split => ({
           transactionId,
           userId: split.userId,
           percentage: split.percentage,
-          amount: (validatedData.amount * (split.percentage || 0)) / 100,
-        }));
+          amount: ((validatedData.amount || 0) * (split.percentage || 0)) / 100,
+        })) || [];
       } else if (validatedData.splitType === 'CUSTOM') {
         // Use provided custom amounts
-        splits = validatedData.splits.map(split => ({
+        splits = validatedData.splits?.map(split => ({
           transactionId,
           userId: split.userId,
           amount: split.amount || 0,
-        }));
+        })) || [];
       }
 
       if (splits.length > 0) {

@@ -9,7 +9,7 @@ interface PlaidTransaction {
   amount: number;
   date: string;
   name: string;
-  category?: string[];
+  category?: string[] | null;
   pending: boolean;
   [key: string]: unknown;
 }
