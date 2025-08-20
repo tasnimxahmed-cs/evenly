@@ -1,0 +1,181 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  avatar    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Bank account connections
+  bankAccounts BankAccount[]
+
+  // Friendships
+  sentFriendRequests     FriendRequest[] @relation("SentFriendRequests")
+  receivedFriendRequests FriendRequest[] @relation("ReceivedFriendRequests")
+  friendships           Friendship[]    @relation("UserFriendships")
+  friendOf             Friendship[]    @relation("FriendOfUser")
+
+  // Circle memberships
+  circleMemberships CircleMember[]
+
+  // Transactions
+  createdTransactions Transaction[]
+  transactionSplits  TransactionSplit[]
+
+  @@map("users")
+}
+
+model BankAccount {
+  id           String   @id @default(cuid())
+  userId       String
+  plaidItemId  String   // Not unique - one item can have multiple accounts
+  plaidAccountId String @unique
+  plaidAccessToken String // Store the access token securely
+  accountName  String
+  accountType  String
+  mask         String?
+  institution  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+
+  @@map("bank_accounts")
+}
+
+model FriendRequest {
+  id          String   @id @default(cuid())
+  senderId    String
+  receiverId  String
+  status      FriendRequestStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  sender   User @relation("SentFriendRequests", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver User @relation("ReceivedFriendRequests", fields: [receiverId], references: [id], onDelete: Cascade)
+
+  @@unique([senderId, receiverId])
+  @@map("friend_requests")
+}
+
+model Friendship {
+  id        String   @id @default(cuid())
+  userId    String
+  friendId  String
+  createdAt DateTime @default(now())
+
+  user   User @relation("UserFriendships", fields: [userId], references: [id], onDelete: Cascade)
+  friend User @relation("FriendOfUser", fields: [friendId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, friendId])
+  @@map("friendships")
+}
+
+model Circle {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String?  @default("#6366f1") // Default primary color
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  members CircleMember[]
+  transactions Transaction[]
+
+  @@map("circles")
+}
+
+model CircleMember {
+  id        String   @id @default(cuid())
+  circleId  String
+  userId    String
+  role      CircleRole @default(MEMBER)
+  joinedAt  DateTime @default(now())
+
+  circle Circle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([circleId, userId])
+  @@map("circle_members")
+}
+
+model Transaction {
+  id            String   @id @default(cuid())
+  circleId      String
+  createdById   String
+  bankAccountId String?
+  plaidTransactionId String?
+  
+  name          String
+  amount        Decimal  @db.Decimal(10, 2)
+  date          DateTime
+  category      String?
+  description   String?
+  receiptUrl    String?
+  
+  splitType     SplitType @default(EQUAL)
+  isSettled     Boolean  @default(false)
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  circle        Circle @relation(fields: [circleId], references: [id], onDelete: Cascade)
+  createdBy     User @relation(fields: [createdById], references: [id], onDelete: Cascade)
+  bankAccount   BankAccount? @relation(fields: [bankAccountId], references: [id], onDelete: SetNull)
+  splits        TransactionSplit[]
+
+  @@map("transactions")
+}
+
+model TransactionSplit {
+  id            String   @id @default(cuid())
+  transactionId String
+  userId        String
+  amount        Decimal  @db.Decimal(10, 2)
+  percentage    Decimal? @db.Decimal(5, 2)
+  isPaid        Boolean  @default(false)
+  paidAt        DateTime?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([transactionId, userId])
+  @@map("transaction_splits")
+}
+
+enum FriendRequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum CircleRole {
+  ADMIN
+  MEMBER
+}
+
+enum SplitType {
+  EQUAL
+  PERCENTAGE
+  CUSTOM
+}
