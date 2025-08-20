@@ -3,6 +3,26 @@ import { prisma } from '@/lib/db';
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 
+interface ClerkWebhookEvent {
+  type: string;
+  data: {
+    id: string;
+    email_addresses?: Array<{
+      id: string;
+      email_address: string;
+    }>;
+    primary_email_address_id?: string;
+    first_name?: string;
+    last_name?: string;
+    image_url?: string;
+  };
+}
+
+interface EmailAddress {
+  id: string;
+  email_address: string;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const headerPayload = headers();
@@ -24,7 +44,7 @@ export async function POST(request: NextRequest) {
     // Create a new Svix instance with your secret.
     const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET || '');
 
-    let evt: any;
+    let evt: ClerkWebhookEvent;
 
     // Verify the payload with the headers
     try {
@@ -47,7 +67,7 @@ export async function POST(request: NextRequest) {
       const { id, email_addresses, first_name, last_name, image_url } = evt.data;
       
       // Get the primary email
-      const primaryEmail = email_addresses?.find((email: any) => email.id === evt.data.primary_email_address_id);
+      const primaryEmail = email_addresses?.find((email: EmailAddress) => email.id === evt.data.primary_email_address_id);
       
       if (primaryEmail) {
         // Create user in our database

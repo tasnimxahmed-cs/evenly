@@ -3,6 +3,17 @@ import { ensureUser } from '@/lib/auth';
 import { prisma } from '@/lib/db';
 import { getTransactions } from '@/lib/plaid';
 
+interface PlaidTransaction {
+  transaction_id: string;
+  account_id: string;
+  amount: number;
+  date: string;
+  name: string;
+  category?: string[];
+  pending: boolean;
+  [key: string]: unknown;
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { userId } = await ensureUser();
@@ -27,7 +38,7 @@ export async function GET(request: NextRequest) {
     const endDate = new Date().toISOString().split('T')[0];
     const startDate = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
-    const allTransactions: any[] = [];
+    const allTransactions: PlaidTransaction[] = [];
     const seenTransactionIds = new Set<string>();
 
     // Fetch real transactions from Plaid

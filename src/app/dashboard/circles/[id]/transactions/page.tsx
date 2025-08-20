@@ -205,7 +205,7 @@ export default function CircleTransactionsPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Total Spent</CardTitle>
@@ -249,7 +249,7 @@ export default function CircleTransactionsPage() {
                 className="w-full pl-10 pr-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button
                 className="cursor-pointer"
                 variant={filterType === 'all' ? 'default' : 'outline'}
@@ -298,16 +298,16 @@ export default function CircleTransactionsPage() {
           filteredTransactions.map((transaction) => (
             <Card key={transaction.id} className="hover:shadow-md transition-shadow">
               <CardHeader>
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
                       <h3 className="text-lg font-semibold">{transaction.name}</h3>
                       <Badge variant={transaction.isSettled ? 'default' : 'secondary'}>
                         {transaction.isSettled ? 'Settled' : 'Unsettled'}
                       </Badge>
                       <Badge variant="outline">{transaction.splitType}</Badge>
                     </div>
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
                       <div className="flex items-center gap-1">
                         <DollarSign className="h-4 w-4" />
                         {formatCurrency(transaction.amount)}
@@ -325,7 +325,7 @@ export default function CircleTransactionsPage() {
                       <p className="text-sm text-muted-foreground mt-2">{transaction.description}</p>
                     )}
                   </div>
-                  <div className="flex gap-2">
+                  <div className="flex flex-wrap gap-2">
                     <Button
                       className="cursor-pointer"
                       size="sm"

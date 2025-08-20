@@ -34,21 +34,27 @@ interface Circle {
   members: Member[];
 }
 
-export default function CircleMembersPage({ params }: { params: { id: string } }) {
+export default function CircleMembersPage({ params }: { params: Promise<{ id: string }> }) {
   const router = useRouter();
   const [circle, setCircle] = useState<Circle | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [inviteEmail, setInviteEmail] = useState("");
   const [isInviting, setIsInviting] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
+  const [circleId, setCircleId] = useState<string>("");
 
   useEffect(() => {
-    fetchCircleData();
-  }, []);
+    const loadData = async () => {
+      const { id } = await params;
+      setCircleId(id);
+      await fetchCircleData(id);
+    };
+    loadData();
+  }, [params]);
 
-  const fetchCircleData = async () => {
+  const fetchCircleData = async (id: string) => {
     try {
-      const response = await fetch(`/api/circles/${params.id}`);
+      const response = await fetch(`/api/circles/${id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch circle data');
       }
@@ -67,7 +73,7 @@ export default function CircleMembersPage({ params }: { params: { id: string } }
 
     setIsInviting(true);
     try {
-      const response = await fetch(`/api/circles/${params.id}/invite`, {
+      const response = await fetch(`/api/circles/${circleId}/invite`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +98,7 @@ export default function CircleMembersPage({ params }: { params: { id: string } }
 
   const generateInviteLink = async () => {
     try {
-      const response = await fetch(`/api/circles/${params.id}/invite-link`, {
+      const response = await fetch(`/api/circles/${circleId}/invite-link`, {
         method: 'POST',
       });
 
@@ -172,7 +178,7 @@ export default function CircleMembersPage({ params }: { params: { id: string } }
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Current Members */}
         <div className="space-y-4">
           <h2 className="text-lg font-semibold">Current Members ({circle.members.length})</h2>

@@ -4,17 +4,18 @@ import { ensureUser } from '@/lib/auth';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await ensureUser();
+    const { id } = await params;
 
     // Check if friendship exists
     const friendship = await prisma.friendship.findUnique({
       where: {
         userId_friendId: {
           userId,
-          friendId: params.id,
+          friendId: id,
         },
       },
     });
@@ -29,14 +30,14 @@ export async function DELETE(
         where: {
           userId_friendId: {
             userId,
-            friendId: params.id,
+            friendId: id,
           },
         },
       }),
       prisma.friendship.delete({
         where: {
           userId_friendId: {
-            userId: params.id,
+            userId: id,
             friendId: userId,
           },
         },

@@ -9,17 +9,18 @@ const updateRequestSchema = z.object({
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await ensureUser();
+    const { id } = await params;
 
     const body = await request.json();
     const validatedData = updateRequestSchema.parse(body);
 
     // Find the friend request
     const friendRequest = await prisma.friendRequest.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!friendRequest) {
@@ -36,7 +37,7 @@ export async function PATCH(
       await prisma.$transaction([
         // Update the friend request status
         prisma.friendRequest.update({
-          where: { id: params.id },
+          where: { id },
           data: { status: 'ACCEPTED' },
         }),
         // Create friendship records (bidirectional)
@@ -58,7 +59,7 @@ export async function PATCH(
     } else {
       // Reject the friend request
       await prisma.friendRequest.update({
-        where: { id: params.id },
+        where: { id },
         data: { status: 'REJECTED' },
       });
 
@@ -81,14 +82,15 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await ensureUser();
+    const { id } = await params;
 
     // Find the friend request
     const friendRequest = await prisma.friendRequest.findUnique({
-      where: { id: params.id },
+      where: { id },
     });
 
     if (!friendRequest) {
@@ -102,7 +104,7 @@ export async function DELETE(
 
     // Delete the friend request
     await prisma.friendRequest.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: 'Friend request cancelled' });

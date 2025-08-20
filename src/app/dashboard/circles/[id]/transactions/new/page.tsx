@@ -74,7 +74,7 @@ export default function NewTransactionPage() {
       
       // Initialize splits for equal distribution
       if (data.members) {
-        setSplits(data.members.map((member: any) => ({
+        setSplits(data.members.map((member: { user: { id: string } }) => ({
           userId: member.user.id,
         })));
       }

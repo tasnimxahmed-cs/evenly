@@ -9,10 +9,11 @@ const inviteSchema = z.object({
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
+    const { id } = await params;
     
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -21,7 +22,7 @@ export async function POST(
     // Check if user is admin of the circle
     const circle = await prisma.circle.findFirst({
       where: {
-        id: params.id,
+        id,
         members: {
           some: {
             userId,
@@ -40,7 +41,7 @@ export async function POST(
     const validatedData = inviteSchema.parse(body);
 
     // Check if user already exists
-    let user = await prisma.user.findUnique({
+    const user = await prisma.user.findUnique({
       where: { email: validatedData.email },
     });
 
@@ -55,7 +56,7 @@ export async function POST(
     const existingMember = await prisma.circleMember.findUnique({
       where: {
         circleId_userId: {
-          circleId: params.id,
+          circleId: id,
           userId: user.id,
         },
       },
@@ -68,7 +69,7 @@ export async function POST(
     // Add user to circle
     await prisma.circleMember.create({
       data: {
-        circleId: params.id,
+        circleId: id,
         userId: user.id,
         role: 'MEMBER',
       },

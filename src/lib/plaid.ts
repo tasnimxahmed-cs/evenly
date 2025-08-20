@@ -1,4 +1,4 @@
-import { Configuration, PlaidApi, PlaidEnvironments } from 'plaid';
+import { Configuration, PlaidApi, PlaidEnvironments, Products, CountryCode, AccountSubtype } from 'plaid';
 
 const configuration = new Configuration({
   basePath: PlaidEnvironments.sandbox,
@@ -17,12 +17,12 @@ export async function createLinkToken(userId: string) {
   const request = {
     user: { client_user_id: userId },
     client_name: 'Evenly',
-    products: ['transactions'] as any,
-    country_codes: ['US'] as any,
+    products: ['transactions'] as Products[],
+    country_codes: ['US'] as CountryCode[],
     language: 'en',
     account_filters: {
       depository: {
-        account_subtypes: ['checking', 'savings'] as any,
+        account_subtypes: ['checking', 'savings'] as AccountSubtype[],
       },
     },
   };

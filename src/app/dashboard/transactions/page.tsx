@@ -11,6 +11,18 @@ import Link from "next/link";
 import { formatCurrency, formatDate } from '@/lib/utils';
 import { TransactionImportModal } from '@/components/transaction-import-modal';
 
+interface PlaidTransaction {
+  transaction_id: string;
+  account_id: string;
+  amount: number;
+  date: string;
+  name: string;
+  category?: string[];
+  pending: boolean;
+  bankAccountId: string;
+  institutionName: string;
+}
+
 interface Transaction {
   id: string;
   name: string;
@@ -87,7 +99,7 @@ export default function TransactionsPage() {
     setShowImportModal(true);
   };
 
-  const handleImportSelected = async (transactions: any[], circleId: string) => {
+  const handleImportSelected = async (transactions: PlaidTransaction[], circleId: string) => {
     setImporting(true);
     try {
       // Call the import API
@@ -158,7 +170,7 @@ export default function TransactionsPage() {
       </div>
 
       {/* Stats */}
-      <div className="grid md:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
@@ -195,7 +207,7 @@ export default function TransactionsPage() {
       </div>
 
       {/* Filters and Search */}
-      <div className="mb-6 flex flex-col sm:flex-row gap-4">
+      <div className="mb-6 flex flex-col sm:flex-row gap-3 sm:gap-4">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
@@ -206,7 +218,7 @@ export default function TransactionsPage() {
             className="pl-10"
           />
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <Button
             className="cursor-pointer"
             variant={filterType === 'all' ? 'default' : 'outline'}
@@ -277,9 +289,9 @@ export default function TransactionsPage() {
           filteredTransactions.map((transaction) => (
             <Card key={transaction.id} className="hover:shadow-md transition-shadow">
               <CardContent className="p-6">
-                <div className="flex items-start justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
                       <div 
                         className="w-3 h-3 rounded-full"
                         style={{ backgroundColor: transaction.circle.color || '#6366f1' }}
@@ -290,7 +302,7 @@ export default function TransactionsPage() {
                     {transaction.description && (
                       <p className="text-muted-foreground text-sm mb-2">{transaction.description}</p>
                     )}
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-sm text-muted-foreground">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3 w-3" />
                         {formatDate(transaction.date)}
@@ -369,7 +381,7 @@ export default function TransactionsPage() {
             </div>
             <CardTitle>Smart Filtering</CardTitle>
             <CardDescription>
-              Filter transactions by circle, date range, category, or amount to find exactly what you're looking for.
+              Filter transactions by circle, date range, category, or amount to find exactly what you&apos;re looking for.
             </CardDescription>
           </CardHeader>
         </Card>

@@ -92,11 +92,11 @@ export default function DashboardPage() {
 
   return (
     <div>
-      {/* Quick Actions */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold">Dashboard</h1>
-          <div className="flex space-x-2">
+             {/* Quick Actions */}
+       <div className="mb-6 sm:mb-8">
+         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-4">
+           <h1 className="text-xl sm:text-2xl font-bold">Dashboard</h1>
+           <div className="flex flex-wrap gap-2">
             <Button 
               onClick={refreshDashboard}
               variant="outline"
@@ -122,8 +122,8 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Stats Overview */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
+             {/* Stats Overview */}
+       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <div className="p-6 rounded-lg border bg-card">
           <div className="flex items-center justify-between">
             <div>
@@ -163,16 +163,16 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Recent Activity */}
-      <div className="grid lg:grid-cols-2 gap-8">
+             {/* Recent Activity */}
+       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Recent Circles */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Recent Circles</h2>
-            <Button variant="ghost" asChild className="cursor-pointer">
-              <Link href="/dashboard/circles">View All</Link>
-            </Button>
-          </div>
+                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+             <h2 className="text-lg font-semibold">Recent Circles</h2>
+             <Button variant="ghost" asChild className="cursor-pointer self-start sm:self-auto">
+               <Link href="/dashboard/circles">View All</Link>
+             </Button>
+           </div>
           {circles.length === 0 ? (
             <div className="rounded-lg border bg-card p-6">
               <div className="text-center py-8">
@@ -223,12 +223,12 @@ export default function DashboardPage() {
 
         {/* Recent Transactions */}
         <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Recent Transactions</h2>
-            <Button variant="ghost" asChild className="cursor-pointer">
-              <Link href="/dashboard/transactions">View All</Link>
-            </Button>
-          </div>
+                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+             <h2 className="text-lg font-semibold">Recent Transactions</h2>
+             <Button variant="ghost" asChild className="cursor-pointer self-start sm:self-auto">
+               <Link href="/dashboard/transactions">View All</Link>
+             </Button>
+           </div>
           <div className="rounded-lg border bg-card p-6">
             {transactions.length === 0 ? (
               <div className="text-center py-8">
@@ -275,10 +275,10 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      {/* Quick Start Guide */}
-      <div className="mt-8 rounded-lg border bg-card p-6">
-        <h2 className="text-lg font-semibold mb-4">Getting Started</h2>
-        <div className="grid md:grid-cols-3 gap-6">
+             {/* Quick Start Guide */}
+       <div className="mt-6 sm:mt-8 rounded-lg border bg-card p-4 sm:p-6">
+         <h2 className="text-lg font-semibold mb-4">Getting Started</h2>
+         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                      <div className="space-y-2">
              <div className="h-8 w-8 rounded-lg bg-primary/10 flex items-center justify-center">
                <span className="text-primary font-bold text-sm">1</span>

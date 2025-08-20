@@ -4,10 +4,11 @@ import { prisma } from '@/lib/db';
 
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await auth();
+    const { id } = await params;
     
     if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
@@ -16,7 +17,7 @@ export async function POST(
     // Check if user is admin of the circle
     const circle = await prisma.circle.findFirst({
       where: {
-        id: params.id,
+        id,
         members: {
           some: {
             userId,
@@ -37,7 +38,7 @@ export async function POST(
     // Store the invite token (you might want to create a separate table for this)
     // For now, we'll just return a link with the token
     const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-    const inviteLink = `${baseUrl}/join-circle?token=${inviteToken}&circleId=${params.id}`;
+    const inviteLink = `${baseUrl}/join-circle?token=${inviteToken}&circleId=${id}`;
 
     // TODO: Store the invite token in the database with expiration
     // This would typically be stored in a separate InviteToken table

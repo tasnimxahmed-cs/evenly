@@ -175,7 +175,7 @@ export default async function CirclePage({ params }: CirclePageProps) {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
         <div className="p-6 rounded-lg border bg-card">
           <div className="flex items-center justify-between">
             <div>
@@ -214,7 +214,7 @@ export default async function CirclePage({ params }: CirclePageProps) {
       </div>
 
       {/* Content Grid */}
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
         {/* Members Section */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">

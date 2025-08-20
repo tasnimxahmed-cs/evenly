@@ -3,6 +3,13 @@ import { prisma } from '@/lib/db';
 import { ensureUser } from '@/lib/auth';
 import { z } from 'zod';
 
+interface SplitData {
+  transactionId: string;
+  userId: string;
+  amount: number;
+  percentage?: number;
+}
+
 const updateTransactionSchema = z.object({
   name: z.string().min(1, 'Transaction name is required').max(100, 'Transaction name must be less than 100 characters').optional(),
   amount: z.number().positive('Amount must be positive').optional(),
@@ -165,7 +172,7 @@ export async function PATCH(
       });
 
       // Create new splits based on split type
-      let splits: any[] = [];
+      let splits: SplitData[] = [];
 
       if (validatedData.splitType === 'EQUAL') {
         // Split equally among all members

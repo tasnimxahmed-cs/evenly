@@ -136,7 +136,7 @@ export default function JoinCirclePage() {
             </div>
             <span className="text-2xl font-bold">Evenly</span>
           </div>
-          <h1 className="text-2xl font-bold mb-2">You're Invited!</h1>
+          <h1 className="text-2xl font-bold mb-2">You&apos;re Invited!</h1>
           <p className="text-muted-foreground">
             Join this circle to start splitting expenses with friends
           </p>
@@ -200,7 +200,7 @@ export default function JoinCirclePage() {
 
         <div className="mt-6 text-center">
           <p className="text-xs text-muted-foreground">
-            By joining this circle, you'll be able to see and contribute to shared expenses.
+            By joining this circle, you&apos;ll be able to see and contribute to shared expenses.
           </p>
         </div>
       </div>

@@ -223,7 +223,7 @@ export default function CircleSettingsPage() {
               Circle Information
             </CardTitle>
             <CardDescription>
-              Update your circle's name, description, and appearance
+              Update your circle&apos;s name, description, and appearance
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">

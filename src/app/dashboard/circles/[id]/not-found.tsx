@@ -12,7 +12,7 @@ export default function CircleNotFound() {
         
         <h1 className="text-2xl font-bold mb-2">Circle Not Found</h1>
         <p className="text-muted-foreground mb-6">
-          The circle you're looking for doesn't exist or you don't have permission to view it.
+          The circle you&apos;re looking for doesn&apos;t exist or you don&apos;t have permission to view it.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-3 justify-center">

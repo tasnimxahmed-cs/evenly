@@ -1,170 +1,189 @@
 # Evenly - Split Bills Effortlessly
 
-Evenly is a modern web application that helps users split bills and expenses with friends, roommates, and groups. Built with Next.js, TypeScript, and Tailwind CSS, it provides a seamless experience for managing shared expenses.
+<div align="center">
 
-## Features
+![Evenly Logo](https://img.shields.io/badge/Evenly-Split%20Bills%20Effortlessly-blue?style=for-the-badge&logo=appveyor)
 
-- **Bank Integration**: Connect bank accounts securely with Plaid
-- **Smart Groups**: Create groups for roommates, trips, or recurring expenses
-- **Flexible Splitting**: Split expenses equally, by percentage, or custom amounts
-- **Transaction Management**: Add transactions manually or import from bank accounts
-- **Real-time Settlements**: Track who owes what and settle up easily
-- **Modern UI**: Beautiful, responsive design with dark mode support
+**The smart way to split expenses with friends, roommates, and groups**
 
-## Tech Stack
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.1-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-336791?style=flat-square&logo=postgresql)](https://www.postgresql.org/)
 
-- **Framework**: Next.js 15 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS 4.1
-- **Database**: PostgreSQL with Prisma ORM
-- **Authentication**: Clerk
-- **Bank Integration**: Plaid
-- **Deployment**: Vercel (recommended)
+[Live Demo](#) • [Features](#features) • [Screenshots](#screenshots) • [Tech Stack](#tech-stack)
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ 
-- PostgreSQL database
-- Clerk account for authentication
-- Plaid account for bank integration (optional)
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd evenly
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Set up environment variables**
-   Create a `.env.local` file in the root directory:
-   ```env
-   # Database
-   DATABASE_URL="postgresql://username:password@localhost:5432/evenly"
-
-   # Clerk Authentication
-   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_your_clerk_publishable_key
-   CLERK_SECRET_KEY=sk_test_your_clerk_secret_key
-
-   # Plaid (for bank integration)
-   PLAID_CLIENT_ID=your_plaid_client_id
-   PLAID_SECRET=your_plaid_secret
-   PLAID_ENV=sandbox
-
-   # App Configuration
-   NEXT_PUBLIC_APP_URL=http://localhost:3000
-   ```
-
-4. **Set up the database**
-   ```bash
-   npx prisma generate
-   npx prisma db push
-   ```
-
-5. **Run the development server**
-   ```bash
-   npm run dev
-   ```
-
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
-
-## Project Structure
-
-```
-evenly/
-├── src/
-│   ├── app/                    # Next.js App Router pages
-│   │   ├── auth/              # Authentication pages
-│   │   ├── dashboard/         # Main dashboard and features
-│   │   └── globals.css        # Global styles and design tokens
-│   ├── components/            # Reusable UI components
-│   │   ├── ui/               # Base UI components
-│   │   └── dashboard/        # Dashboard-specific components
-│   └── lib/                  # Utility functions and configurations
-├── prisma/                   # Database schema and migrations
-├── public/                   # Static assets
-└── package.json
-```
-
-## Key Features Implementation
-
-### Authentication
-- Uses Clerk for secure user authentication
-- Supports email/password and social login
-- Protected routes with middleware
-
-### Database Schema
-- Users and authentication integration
-- Groups and group memberships
-- Transactions and splits
-- Bank account connections
-- Friend relationships
-
-### Design System
-- Custom color palette with blue primary colors
-- Consistent typography with Inter font
-- Responsive design with mobile-first approach
-- Dark mode support
-
-## Development
-
-### Available Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
-
-### Database Management
-
-- `npx prisma studio` - Open Prisma Studio for database management
-- `npx prisma generate` - Generate Prisma client
-- `npx prisma db push` - Push schema changes to database
-- `npx prisma migrate dev` - Create and apply migrations
-
-## Deployment
-
-### Vercel (Recommended)
-
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically on push
-
-### Environment Variables for Production
-
-Make sure to set these in your production environment:
-- `DATABASE_URL` - Production PostgreSQL connection string
-- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` - Clerk publishable key
-- `CLERK_SECRET_KEY` - Clerk secret key
-- `PLAID_CLIENT_ID` - Plaid client ID
-- `PLAID_SECRET` - Plaid secret
-- `PLAID_ENV` - Plaid environment (sandbox/development/production)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-For support, email support@evenly.app or create an issue in this repository.
+</div>
 
 ---
 
-Built with ❤️ for simplifying expense sharing
+## 🚀 Overview
+
+Evenly is a modern, mobile-first web application designed to simplify expense sharing among friends, roommates, and groups. Built with the latest web technologies, it provides a seamless experience for tracking shared expenses, splitting bills, and settling up with friends.
+
+### Why Evenly?
+
+- **🔗 Bank Integration**: Connect your bank accounts securely with Plaid to automatically import transactions
+- **👥 Smart Groups**: Create "Circles" for different expense contexts (roommates, trips, events)
+- **⚖️ Flexible Splitting**: Split expenses equally, by percentage, or custom amounts
+- **📱 Mobile-First**: Optimized for mobile devices with responsive design
+- **🔒 Secure**: Enterprise-grade authentication and data protection
+- **⚡ Real-time**: Instant updates and notifications for settlements
+
+## ✨ Features
+
+### Core Functionality
+- **User Authentication**: Secure sign-up and login with Clerk
+- **Circle Management**: Create and manage expense groups
+- **Transaction Tracking**: Add expenses manually or import from bank accounts
+- **Smart Splitting**: Multiple splitting options (equal, percentage, custom)
+- **Settlement Tracking**: Real-time balance calculations and payment status
+- **Friend System**: Add friends and manage relationships
+
+### Advanced Features
+- **Bank Integration**: Connect multiple bank accounts via Plaid
+- **Transaction Import**: Bulk import transactions from connected accounts
+- **Invite System**: Email invitations and shareable invite links
+- **Role Management**: Admin and member roles within circles
+- **Search & Filter**: Find transactions quickly with advanced filtering
+- **Mobile Responsive**: Optimized for all device sizes
+
+### User Experience
+- **Intuitive Dashboard**: Clear overview of balances and recent activity
+- **Real-time Updates**: Instant reflection of changes across the app
+- **Color-coded Transactions**: Visual indicators for amounts and status
+- **Dark Mode Support**: Comfortable viewing in any lighting condition
+- **Touch-friendly Interface**: Optimized for mobile interactions
+
+## 📱 Screenshots
+
+> *Screenshots will be added here once you provide them*
+
+### Dashboard Overview
+*Main dashboard showing total balance, active circles, and recent transactions*
+
+### Circle Management
+*Creating and managing expense circles with member invitations*
+
+### Transaction Entry
+*Adding new transactions with flexible splitting options*
+
+### Bank Integration
+*Connecting bank accounts and importing transactions*
+
+### Mobile Experience
+*Responsive design optimized for mobile devices*
+
+## 🛠 Tech Stack
+
+### Frontend
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Type-safe development
+- **Tailwind CSS 4.1** - Utility-first CSS framework
+- **Lucide React** - Beautiful icon library
+
+### Backend & Database
+- **PostgreSQL** - Primary database (Neon)
+- **Prisma ORM** - Type-safe database client
+- **Next.js API Routes** - Serverless API endpoints
+
+### Authentication & Integrations
+- **Clerk** - User authentication and management
+- **Plaid** - Bank account integration
+- **Zod** - Schema validation
+
+### Deployment & Infrastructure
+- **Vercel** - Hosting and deployment platform
+- **Neon** - Serverless PostgreSQL database
+
+## 🎯 Target Audience
+
+Evenly is designed for:
+
+- **🏠 Roommates** - Split rent, utilities, and household expenses
+- **✈️ Travel Groups** - Manage trip expenses and shared costs
+- **🎉 Event Organizers** - Track group event expenses
+- **👥 Friend Groups** - Split dinner bills, activities, and shared purchases
+- **💼 Small Teams** - Manage team lunches and work-related expenses
+
+## 🚀 Getting Started
+
+### For Users
+1. Visit [evenly.app](#) (coming soon)
+2. Sign up with your email or social account
+3. Create your first circle
+4. Add friends and start tracking expenses
+
+### For Developers
+See [DEVELOPMENT.md](./DEVELOPMENT.md) for setup instructions.
+
+## 📈 Roadmap
+
+### Phase 1 (Current)
+- ✅ Core expense tracking
+- ✅ Bank integration
+- ✅ Mobile-responsive design
+- ✅ User authentication
+
+### Phase 2 (Next)
+- 🔄 Payment integration (Venmo, PayPal, Zelle)
+- 🔄 Push notifications
+- 🔄 Expense categories and budgeting
+- 🔄 Receipt photo upload with OCR
+
+### Phase 3 (Future)
+- 📋 Advanced analytics and insights
+- 📋 Recurring expense automation
+- 📋 Multi-currency support
+- 📋 API for third-party integrations
+
+## 💰 Monetization Strategy
+
+Evenly is designed as a freemium SaaS product:
+
+### Free Tier
+- Up to 3 active circles
+- Basic expense tracking
+- Manual transaction entry
+- Standard support
+
+### Premium Tier ($4.99/month)
+- Unlimited circles
+- Bank account integration
+- Advanced analytics
+- Priority support
+- Export capabilities
+
+### Business Tier ($19.99/month)
+- Team management features
+- Advanced reporting
+- API access
+- White-label options
+
+## 🤝 Contributing
+
+Evenly is currently in active development. For feature requests, bug reports, or contributions, please:
+
+1. Check existing issues
+2. Create a detailed feature request
+3. Follow the contribution guidelines
+
+## 📄 License
+
+This project is proprietary software. All rights reserved.
+
+## 📞 Support
+
+- **Email**: support@evenly.app
+- **Documentation**: [docs.evenly.app](#)
+- **Status**: [status.evenly.app](#)
+
+---
+
+<div align="center">
+
+**Built with ❤️ for simplifying expense sharing**
+
+*Making bill splitting effortless, one transaction at a time*
+
+</div>

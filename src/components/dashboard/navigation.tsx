@@ -42,7 +42,7 @@ export function DashboardNavigation() {
         )}
       >
         <div className="fixed inset-0 bg-background/80 backdrop-blur-sm" />
-        <div className="fixed inset-y-0 left-0 z-50 w-64 bg-background border-r">
+        <div className="fixed inset-y-0 left-0 z-50 w-72 sm:w-80 bg-background border-r">
           <div className="flex h-16 items-center justify-between px-4 border-b">
             <div className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">
@@ -87,7 +87,7 @@ export function DashboardNavigation() {
 
       {/* Desktop sidebar */}
       <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-64 lg:flex-col">
-        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-background px-6 pb-4">
+        <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r bg-background px-4 sm:px-6 pb-4">
           <div className="flex h-16 items-center">
             <Link href="/dashboard" className="flex items-center space-x-2">
               <div className="h-8 w-8 rounded-lg bg-primary flex items-center justify-center">

@@ -246,7 +246,7 @@ export default function FriendsPage() {
               Sent Requests ({friendsData.sentRequests.length})
             </CardTitle>
             <CardDescription>
-              Pending friend requests you've sent
+              Pending friend requests you&apos;ve sent
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -289,7 +289,7 @@ export default function FriendsPage() {
             My Friends ({friendsData?.friends.length || 0})
           </CardTitle>
           <CardDescription>
-            People you're friends with
+            People you&apos;re friends with
           </CardDescription>
         </CardHeader>
         <CardContent>

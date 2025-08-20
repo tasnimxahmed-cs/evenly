@@ -243,7 +243,7 @@ export default function EditTransactionPage() {
     (splitType === 'CUSTOM' && Math.abs(totalSplit - totalAmount) < 0.01);
 
   return (
-    <div className="max-w-2xl mx-auto space-y-6">
+    <div className="max-w-2xl mx-auto space-y-4 sm:space-y-6 px-4 sm:px-0">
       {/* Header */}
       <div className="flex items-center gap-4">
         <Button
@@ -280,7 +280,7 @@ export default function EditTransactionPage() {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium mb-2">Amount *</label>
                 <Input
@@ -333,7 +333,7 @@ export default function EditTransactionPage() {
             <CardDescription>Choose how to split this transaction among circle members</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2">
               <Button
                 type="button"
                 variant={splitType === 'EQUAL' ? 'default' : 'outline'}

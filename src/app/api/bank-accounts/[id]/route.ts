@@ -4,15 +4,16 @@ import { ensureUser } from '@/lib/auth';
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const { userId } = await ensureUser();
+    const { id } = await params;
 
     // Check if the bank account belongs to the user
     const bankAccount = await prisma.bankAccount.findFirst({
       where: {
-        id: params.id,
+        id,
         userId,
       },
     });
@@ -23,7 +24,7 @@ export async function DELETE(
 
     // Delete the bank account
     await prisma.bankAccount.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: 'Bank account disconnected successfully' });
