@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -17,7 +18,8 @@ import {
   Circle,
   ArrowLeft,
   Filter,
-  Search
+  Search,
+  CreditCard
 } from 'lucide-react';
 import { formatCurrency, formatDate, formatRelativeTime } from '@/lib/utils';
 
@@ -199,7 +201,7 @@ export default function CircleTransactionsPage() {
           onClick={() => router.push(`/dashboard/circles/${circleId}/transactions/new`)}
           className="flex items-center gap-2 cursor-pointer"
         >
-          <Plus className="h-4 w-4" />
+          <CreditCard className="h-4 w-4" />
           Add Transaction
         </Button>
       </div>
@@ -301,7 +303,12 @@ export default function CircleTransactionsPage() {
                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                      <h3 className="text-lg font-semibold">{transaction.name}</h3>
+                      <Link 
+                        href={`/dashboard/transactions/${transaction.id}`}
+                        className="text-lg font-semibold hover:text-primary transition-colors cursor-pointer"
+                      >
+                        {transaction.name}
+                      </Link>
                       <Badge variant={transaction.isSettled ? 'default' : 'secondary'}>
                         {transaction.isSettled ? 'Settled' : 'Unsettled'}
                       </Badge>

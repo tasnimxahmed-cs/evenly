@@ -119,54 +119,57 @@ export default async function CirclePage({ params }: CirclePageProps) {
           </Button>
         </div>
         
-        <div className="flex items-start justify-between">
-          <div className="flex items-start space-x-4">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 lg:gap-6">
+          <div className="flex items-start space-x-3 sm:space-x-4">
             <div
-              className="h-16 w-16 rounded-xl flex items-center justify-center text-white font-bold text-xl"
+              className="h-12 w-12 sm:h-16 sm:w-16 rounded-xl flex items-center justify-center text-white font-bold text-lg sm:text-xl"
               style={{ backgroundColor: circle.color || "#6366f1" }}
             >
               {circle.name.charAt(0).toUpperCase()}
             </div>
-            <div>
-              <h1 className="text-3xl font-bold mb-2">{circle.name}</h1>
+            <div className="flex-1 min-w-0">
+              <h1 className="text-2xl sm:text-3xl font-bold mb-2">{circle.name}</h1>
               {circle.description && (
-                <p className="text-muted-foreground mb-2">{circle.description}</p>
+                <p className="text-sm text-muted-foreground mb-2">{circle.description}</p>
               )}
-              <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
                 <div className="flex items-center">
-                  <Users className="h-4 w-4 mr-1" />
+                  <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                   {circle._count.members} member{circle._count.members !== 1 ? 's' : ''}
                 </div>
                 <div className="flex items-center">
-                  <CreditCard className="h-4 w-4 mr-1" />
+                  <CreditCard className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                   {circle._count.transactions} transaction{circle._count.transactions !== 1 ? 's' : ''}
                 </div>
                 <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1" />
+                  <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                   Created {formatDate(circle.createdAt)}
                 </div>
               </div>
             </div>
           </div>
           
-          <div className="flex space-x-2">
-            <Button asChild className="cursor-pointer">
+          <div className="flex flex-wrap gap-2 self-start">
+            <Button asChild className="cursor-pointer" size="sm">
               <Link href={`/dashboard/circles/${circle.id}/transactions`} className="flex items-center">
                 <DollarSign className="h-4 w-4 mr-2" />
-                View Transactions
+                <span className="hidden sm:inline">View Transactions</span>
+                <span className="sm:hidden">View</span>
               </Link>
             </Button>
-            <Button asChild className="cursor-pointer">
+            <Button asChild className="cursor-pointer" size="sm">
               <Link href={`/dashboard/circles/${circle.id}/transactions/new`} className="flex items-center">
-                <Plus className="h-4 w-4 mr-2" />
-                Add Transaction
+                <CreditCard className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Add Transaction</span>
+                <span className="sm:hidden">Add</span>
               </Link>
             </Button>
             {isAdmin && (
-              <Button variant="outline" asChild className="cursor-pointer">
+              <Button variant="outline" asChild className="cursor-pointer" size="sm">
                 <Link href={`/dashboard/circles/${circle.id}/settings`} className="flex items-center">
                   <Settings className="h-4 w-4 mr-2" />
-                  Settings
+                  <span className="hidden sm:inline">Settings</span>
+                  <span className="sm:hidden">Settings</span>
                 </Link>
               </Button>
             )}
@@ -175,39 +178,39 @@ export default async function CirclePage({ params }: CirclePageProps) {
       </div>
 
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
-        <div className="p-6 rounded-lg border bg-card">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
+        <div className="p-4 sm:p-6 rounded-lg border bg-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Total Spent</p>
-              <p className="text-2xl font-bold">{formatCurrency(totalSpent)}</p>
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">Total Spent</p>
+              <p className="text-lg sm:text-2xl font-bold">{formatCurrency(totalSpent)}</p>
             </div>
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-              <DollarSign className="h-6 w-6 text-primary" />
+            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
           </div>
         </div>
 
-        <div className="p-6 rounded-lg border bg-card">
+        <div className="p-4 sm:p-6 rounded-lg border bg-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Members</p>
-              <p className="text-2xl font-bold">{circle._count.members}</p>
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">Members</p>
+              <p className="text-lg sm:text-2xl font-bold">{circle._count.members}</p>
             </div>
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-              <Users className="h-6 w-6 text-primary" />
+            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
           </div>
         </div>
 
-        <div className="p-6 rounded-lg border bg-card">
+        <div className="p-4 sm:p-6 rounded-lg border bg-card">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Transactions</p>
-              <p className="text-2xl font-bold">{circle._count.transactions}</p>
+              <p className="text-xs sm:text-sm font-medium text-muted-foreground">Transactions</p>
+              <p className="text-lg sm:text-2xl font-bold">{circle._count.transactions}</p>
             </div>
-            <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center">
-              <CreditCard className="h-6 w-6 text-primary" />
+            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-primary/10 flex items-center justify-center">
+              <CreditCard className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
             </div>
           </div>
         </div>
@@ -294,9 +297,10 @@ export default async function CirclePage({ params }: CirclePageProps) {
             ) : (
               <div className="p-4 space-y-3">
                 {circle.transactions.map((transaction) => (
-                  <div
+                  <Link
                     key={transaction.id}
-                    className="flex items-center justify-between py-3 first:pt-0 last:pb-0 border-b last:border-b-0"
+                    href={`/dashboard/transactions/${transaction.id}`}
+                    className="flex items-center justify-between py-3 first:pt-0 last:pb-0 border-b last:border-b-0 hover:bg-muted/50 transition-colors cursor-pointer"
                   >
                     <div className="flex items-center space-x-3">
                       <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -317,7 +321,7 @@ export default async function CirclePage({ params }: CirclePageProps) {
                         {transaction.splits.length} split{transaction.splits.length !== 1 ? 's' : ''}
                       </p>
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}

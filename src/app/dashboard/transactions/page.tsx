@@ -144,63 +144,68 @@ export default function TransactionsPage() {
   return (
     <div>
       {/* Header */}
-      <div className="mb-8">
-                  <div className="flex items-center justify-between mb-4">
-            <h1 className="text-2xl font-bold">Transactions</h1>
-            <div className="flex gap-2">
-              <Button
-                onClick={handleImportTransactions}
-                variant="outline"
-                className="cursor-pointer"
-              >
-                <Download className="h-4 w-4 mr-2" />
-                Import from Bank
-              </Button>
-              <Button asChild className="cursor-pointer">
-                <Link href="/dashboard/circles" className="flex items-center">
-                  <Users className="h-4 w-4 mr-2" />
-                  View Circles
-                </Link>
-              </Button>
-            </div>
+      <div className="mb-6 sm:mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
+          <div>
+            <h1 className="text-xl sm:text-2xl font-bold">Transactions</h1>
+            <p className="text-sm text-muted-foreground mt-1">
+              Track and manage all your shared expenses across different circles.
+            </p>
           </div>
-        <p className="text-muted-foreground">
-          Track and manage all your shared expenses across different circles.
-        </p>
+          <div className="flex flex-wrap gap-2">
+            <Button
+              onClick={handleImportTransactions}
+              variant="outline"
+              size="sm"
+              className="cursor-pointer"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">Import from Bank</span>
+              <span className="sm:hidden">Import</span>
+            </Button>
+            <Button asChild className="cursor-pointer" size="sm">
+              <Link href="/dashboard/transactions/new" className="flex items-center">
+                <CreditCard className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Add Transaction</span>
+                <span className="sm:hidden">Add</span>
+              </Link>
+            </Button>
+          </div>
+        </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Total Spent</p>
-                <p className="text-2xl font-bold">{formatCurrency(totalSpent)}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Total Spent</p>
+                <p className="text-lg sm:text-2xl font-bold">{formatCurrency(totalSpent)}</p>
               </div>
-              <DollarSign className="h-8 w-8 text-primary" />
+              <DollarSign className="h-6 w-6 sm:h-8 sm:w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Unsettled</p>
-                <p className="text-2xl font-bold">{formatCurrency(unsettledAmount)}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Unsettled</p>
+                <p className="text-lg sm:text-2xl font-bold">{formatCurrency(unsettledAmount)}</p>
               </div>
-              <Calendar className="h-8 w-8 text-warning" />
+              <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-warning" />
             </div>
           </CardContent>
         </Card>
         <Card>
-          <CardContent className="p-4">
+          <CardContent className="p-4 sm:p-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Total Transactions</p>
-                <p className="text-2xl font-bold">{transactions.length}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Total Transactions</p>
+                <p className="text-lg sm:text-2xl font-bold">{transactions.length}</p>
               </div>
-              <CreditCard className="h-8 w-8 text-success" />
+              <CreditCard className="h-6 w-6 sm:h-8 sm:w-8 text-success" />
             </div>
           </CardContent>
         </Card>
@@ -264,14 +269,14 @@ export default function TransactionsPage() {
                                 {transactions.length === 0 && (
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                       <Button asChild className="cursor-pointer">
-                        <Link href="/dashboard/circles" className="flex items-center">
-                          <Users className="h-4 w-4 mr-2" />
-                          View Circles
+                        <Link href="/dashboard/transactions/new" className="flex items-center">
+                          <Plus className="h-4 w-4 mr-2" />
+                          Add Transaction
                         </Link>
                       </Button>
                       <Button variant="outline" asChild className="cursor-pointer">
                         <Link href="/dashboard/circles/new" className="flex items-center">
-                          <Plus className="h-4 w-4 mr-2" />
+                          <Users className="h-4 w-4 mr-2" />
                           Create Circle
                         </Link>
                       </Button>
@@ -289,16 +294,21 @@ export default function TransactionsPage() {
           filteredTransactions.map((transaction) => (
             <Card key={transaction.id} className="hover:shadow-md transition-shadow">
               <CardContent className="p-6">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                  <div className="flex-1">
-                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                      <div 
-                        className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: transaction.circle.color || '#6366f1' }}
-                      />
-                      <h3 className="font-semibold">{transaction.name}</h3>
-                      <Badge variant="outline">{transaction.circle.name}</Badge>
-                    </div>
+                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                   <div className="flex-1">
+                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                       <div 
+                         className="w-3 h-3 rounded-full"
+                         style={{ backgroundColor: transaction.circle.color || '#6366f1' }}
+                       />
+                       <Link 
+                         href={`/dashboard/transactions/${transaction.id}`}
+                         className="font-semibold hover:text-primary transition-colors cursor-pointer"
+                       >
+                         {transaction.name}
+                       </Link>
+                       <Badge variant="outline">{transaction.circle.name}</Badge>
+                     </div>
                     {transaction.description && (
                       <p className="text-muted-foreground text-sm mb-2">{transaction.description}</p>
                     )}

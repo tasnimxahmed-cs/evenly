@@ -51,6 +51,24 @@ export default async function Home() {
                 </>
               )}
             </div>
+            {/* Mobile CTA */}
+            <div className="sm:hidden">
+              {userId ? (
+                <Button size="sm" asChild>
+                  <Link href="/dashboard" className="flex items-center">
+                    Dashboard
+                    <ArrowRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </Button>
+              ) : (
+                <Button size="sm" asChild>
+                  <Link href="/auth/signin" className="flex items-center">
+                    Start
+                    <ArrowRight className="ml-1 h-3 w-3" />
+                  </Link>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </nav>

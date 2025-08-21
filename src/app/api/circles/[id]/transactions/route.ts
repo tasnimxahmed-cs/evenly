@@ -13,7 +13,19 @@ interface SplitData {
 const createTransactionSchema = z.object({
   name: z.string().min(1, 'Transaction name is required').max(100, 'Transaction name must be less than 100 characters'),
   amount: z.number().positive('Amount must be positive'),
-  date: z.string().datetime('Invalid date format'),
+  date: z.string().min(1, 'Date is required').transform((dateStr) => {
+    // Handle both ISO strings and date-only strings
+    const date = new Date(dateStr);
+    if (isNaN(date.getTime())) {
+      // If invalid, try parsing as YYYY-MM-DD format
+      const dateOnlyMatch = dateStr.match(/^\d{4}-\d{2}-\d{2}$/);
+      if (dateOnlyMatch) {
+        return new Date(dateStr + 'T00:00:00.000Z');
+      }
+      throw new Error('Invalid date format');
+    }
+    return date;
+  }),
   category: z.string().optional(),
   description: z.string().optional(),
   splitType: z.enum(['EQUAL', 'PERCENTAGE', 'CUSTOM']).default('EQUAL'),
@@ -72,7 +84,7 @@ export async function POST(
           createdById: userId,
           name: validatedData.name,
           amount: validatedData.amount,
-          date: new Date(validatedData.date),
+          date: validatedData.date,
           category: validatedData.category,
           description: validatedData.description,
           splitType: validatedData.splitType,

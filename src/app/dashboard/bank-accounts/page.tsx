@@ -86,17 +86,17 @@ export default function BankAccountsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Bank Accounts</h1>
-          <p className="text-muted-foreground">Manage your connected bank accounts</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold">Bank Accounts</h1>
+          <p className="text-sm text-muted-foreground mt-1">Manage your connected bank accounts</p>
         </div>
         {bankAccounts.length > 0 && (
           <PlaidLink
             key="header-plaid-link"
             onSuccess={handleConnectBankSuccess}
             onError={handleConnectBankError}
-            className="flex items-center gap-2 cursor-pointer"
+            className="flex items-center gap-2 cursor-pointer self-start sm:self-auto"
           >
             <Plus className="h-4 w-4" />
             Connect Bank Account

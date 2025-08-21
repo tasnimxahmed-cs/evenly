@@ -79,9 +79,6 @@ export function DashboardNavigation() {
               );
             })}
           </nav>
-          <div className="border-t p-4">
-            <UserButton afterSignOutUrl="/" />
-          </div>
         </div>
       </div>
 
@@ -145,7 +142,10 @@ export function DashboardNavigation() {
           <Menu className="h-4 w-4" />
         </Button>
         <div className="flex-1 text-sm font-semibold leading-6 text-foreground">
-          Dashboard
+          {(() => {
+            const currentPage = navigation.find(item => pathname === item.href);
+            return currentPage ? currentPage.name : 'Dashboard';
+          })()}
         </div>
         <UserButton afterSignOutUrl="/" />
       </div>
