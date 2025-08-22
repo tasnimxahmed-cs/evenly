@@ -292,23 +292,25 @@ export default function TransactionsPage() {
           </Card>
         ) : (
           filteredTransactions.map((transaction) => (
-            <Card key={transaction.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
-                                 <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-                   <div className="flex-1">
-                     <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
-                       <div 
-                         className="w-3 h-3 rounded-full"
-                         style={{ backgroundColor: transaction.circle.color || '#6366f1' }}
-                       />
-                       <Link 
-                         href={`/dashboard/transactions/${transaction.id}`}
-                         className="font-semibold hover:text-primary transition-colors cursor-pointer"
-                       >
-                         {transaction.name}
-                       </Link>
-                       <Badge variant="outline">{transaction.circle.name}</Badge>
-                     </div>
+            <Link 
+              key={transaction.id} 
+              href={`/dashboard/transactions/${transaction.id}`}
+              className="block hover:shadow-md hover:border-primary/20 transition-all duration-200 cursor-pointer group"
+            >
+              <Card className="group">
+                <CardContent className="p-6">
+                  <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                    <div className="flex-1">
+                      <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                        <div 
+                          className="w-3 h-3 rounded-full group-hover:scale-110 transition-transform"
+                          style={{ backgroundColor: transaction.circle.color || '#6366f1' }}
+                        />
+                        <h3 className="font-semibold group-hover:text-primary transition-colors">
+                          {transaction.name}
+                        </h3>
+                        <Badge variant="outline">{transaction.circle.name}</Badge>
+                      </div>
                     {transaction.description && (
                       <p className="text-muted-foreground text-sm mb-2">{transaction.description}</p>
                     )}
@@ -326,14 +328,14 @@ export default function TransactionsPage() {
                       )}
                     </div>
                   </div>
-                                     <div className="text-right">
-                     <p className={`text-lg font-semibold ${Number(transaction.amount) > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                       {formatCurrency(Math.abs(transaction.amount))}
-                     </p>
-                     <p className="text-sm text-muted-foreground">
-                       {transaction.splits.length} split{transaction.splits.length !== 1 ? 's' : ''}
-                     </p>
-                   </div>
+                    <div className="text-right">
+                      <p className={`text-lg font-semibold ${Number(transaction.amount) > 0 ? 'text-red-600' : 'text-green-600'}`}>
+                        {formatCurrency(Math.abs(transaction.amount))}
+                      </p>
+                      <p className="text-sm text-muted-foreground">
+                        {transaction.splits.length} split{transaction.splits.length !== 1 ? 's' : ''}
+                      </p>
+                    </div>
                 </div>
                 
                 {/* Splits Preview */}
@@ -364,8 +366,9 @@ export default function TransactionsPage() {
                     )}
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </Link>
           ))
         )}
       </div>

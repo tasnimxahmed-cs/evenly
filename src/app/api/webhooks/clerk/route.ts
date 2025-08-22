@@ -11,7 +11,12 @@ interface ClerkWebhookEvent {
       id: string;
       email_address: string;
     }>;
+    phone_numbers?: Array<{
+      id: string;
+      phone_number: string;
+    }>;
     primary_email_address_id?: string;
+    primary_phone_number_id?: string;
     first_name?: string;
     last_name?: string;
     image_url?: string;
@@ -64,10 +69,13 @@ export async function POST(request: NextRequest) {
     const eventType = evt.type;
     
     if (eventType === 'user.created') {
-      const { id, email_addresses, first_name, last_name, image_url } = evt.data;
+      const { id, email_addresses, phone_numbers, first_name, last_name, image_url } = evt.data;
       
       // Get the primary email
       const primaryEmail = email_addresses?.find((email: EmailAddress) => email.id === evt.data.primary_email_address_id);
+      
+      // Get the primary phone number (only available with Clerk Pro)
+      const primaryPhone = phone_numbers?.find((phone) => phone.id === evt.data.primary_phone_number_id);
       
       if (primaryEmail) {
         // Create user in our database
@@ -75,6 +83,7 @@ export async function POST(request: NextRequest) {
           data: {
             id,
             email: primaryEmail.email_address,
+            phone: primaryPhone?.phone_number || null, // Will be null without Clerk Pro
             name: `${first_name || ''} ${last_name || ''}`.trim() || 'User',
             avatar: image_url,
           },

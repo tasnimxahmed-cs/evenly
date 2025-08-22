@@ -219,30 +219,26 @@ export default function DashboardPage() {
           ) : (
             <div className="space-y-3">
               {circles.map((circle) => (
-                <div
+                <Link
                   key={circle.id}
-                  className="flex items-center justify-between p-4 rounded-lg border bg-card hover:shadow-sm transition-shadow"
+                  href={`/dashboard/circles/${circle.id}`}
+                  className="flex items-center justify-between p-4 rounded-lg border bg-card hover:shadow-md hover:border-primary/20 transition-all duration-200 cursor-pointer group"
                 >
                   <div className="flex items-center space-x-3">
                     <div
-                      className="h-8 w-8 rounded-lg flex items-center justify-center text-white text-sm font-bold"
+                      className="h-8 w-8 rounded-lg flex items-center justify-center text-white text-sm font-bold group-hover:scale-105 transition-transform"
                       style={{ backgroundColor: circle.color || "#6366f1" }}
                     >
                       {circle.name.charAt(0).toUpperCase()}
                     </div>
                     <div>
-                      <h3 className="font-medium">{circle.name}</h3>
+                      <h3 className="font-medium group-hover:text-primary transition-colors">{circle.name}</h3>
                       <p className="text-sm text-muted-foreground">
                         {circle._count.transactions} transaction{circle._count.transactions !== 1 ? 's' : ''}
                       </p>
                     </div>
                   </div>
-                  <Button variant="ghost" size="sm" asChild className="cursor-pointer">
-                    <Link href={`/dashboard/circles/${circle.id}`}>
-                      View
-                    </Link>
-                  </Button>
-                </div>
+                </Link>
               ))}
             </div>
           )}
@@ -256,8 +252,8 @@ export default function DashboardPage() {
               <Link href="/dashboard/transactions">View All</Link>
             </Button>
           </div>
-          <div className="rounded-lg border bg-card p-6">
-            {transactions.length === 0 ? (
+          {transactions.length === 0 ? (
+            <div className="rounded-lg border bg-card p-6">
               <div className="text-center py-8">
                 <CreditCard className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                 <h3 className="text-lg font-medium mb-2">No transactions yet</h3>
@@ -265,41 +261,41 @@ export default function DashboardPage() {
                   Add your first transaction to start tracking shared expenses
                 </p>
               </div>
-            ) : (
-              <div className="space-y-3">
-                                 {transactions.map((transaction) => (
-                   <Link
-                     key={transaction.id}
-                     href={`/dashboard/transactions/${transaction.id}`}
-                     className="flex items-center justify-between p-3 rounded-lg border bg-background hover:shadow-sm transition-shadow cursor-pointer"
-                   >
-                     <div className="flex items-center space-x-3">
-                       <div
-                         className="h-8 w-8 rounded-lg flex items-center justify-center text-white text-sm font-bold"
-                         style={{ backgroundColor: transaction.circle.color || "#6366f1" }}
-                       >
-                         {transaction.circle.name.charAt(0).toUpperCase()}
-                       </div>
-                       <div>
-                         <h3 className="font-medium">{transaction.name}</h3>
-                         <p className="text-sm text-muted-foreground">
-                           {transaction.circle.name} • {transaction.createdBy.name}
-                         </p>
-                       </div>
-                     </div>
-                     <div className="text-right">
-                        <p className={`font-semibold ${Number(transaction.amount) > 0 ? 'text-red-600' : 'text-green-600'}`}>
-                          ${Math.abs(Number(transaction.amount)).toFixed(2)}
-                        </p>
-                        <p className="text-xs text-muted-foreground">
-                          {transaction.splits.length} split{transaction.splits.length !== 1 ? 's' : ''}
-                        </p>
-                      </div>
-                   </Link>
-                 ))}
-              </div>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="space-y-3">
+              {transactions.map((transaction) => (
+                <Link
+                  key={transaction.id}
+                  href={`/dashboard/transactions/${transaction.id}`}
+                  className="flex items-center justify-between p-4 rounded-lg border bg-card hover:shadow-md hover:border-primary/20 transition-all duration-200 cursor-pointer group"
+                >
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className="h-8 w-8 rounded-lg flex items-center justify-center text-white text-sm font-bold group-hover:scale-105 transition-transform"
+                      style={{ backgroundColor: transaction.circle.color || "#6366f1" }}
+                    >
+                      {transaction.circle.name.charAt(0).toUpperCase()}
+                    </div>
+                    <div>
+                      <h3 className="font-medium group-hover:text-primary transition-colors">{transaction.name}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {transaction.circle.name} • {transaction.createdBy.name}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className={`font-semibold ${Number(transaction.amount) > 0 ? 'text-red-600' : 'text-green-600'}`}>
+                      ${Math.abs(Number(transaction.amount)).toFixed(2)}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {transaction.splits.length} split{transaction.splits.length !== 1 ? 's' : ''}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
