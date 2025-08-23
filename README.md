@@ -13,22 +13,22 @@
 
 **[View Live Demo](https://evenly-taupe.vercel.app/)**
 
-## 📱 Screenshots
+## 🖥️ Screenshots
 
 ### Dashboard Overview
-![Dashboard](<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/037741d7-a72c-41f5-a7e4-65c9a509e811" />)
+![Dashboard](https://github.com/user-attachments/assets/037741d7-a72c-41f5-a7e4-65c9a509e811)
 *Clean, mobile-first dashboard with financial overview and quick actions*
 
 ### Circle Management
-![Circles](<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/843d4224-aa18-4cfd-b0d4-69ea17e61381" />)
+![Circles](https://github.com/user-attachments/assets/843d4224-aa18-4cfd-b0d4-69ea17e61381)
 *Create and manage expense groups with friends and roommates*
 
 ### Transaction Tracking
-![Transactions](<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/b06c605c-3acf-4cc7-80f2-4e29275ad2d2" />)
+![Transactions](https://github.com/user-attachments/assets/b06c605c-3acf-4cc7-80f2-4e29275ad2d2)
 *Track shared expenses with automatic splitting and payment status*
 
 ### Bank Integration
-![Bank Integration](<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/7bb77faa-5903-49e1-9c02-367b4800afe2" />)
+![Bank Integration](https://github.com/user-attachments/assets/7bb77faa-5903-49e1-9c02-367b4800afe2)
 *Securely connect bank accounts and import transactions via Plaid*
 
 ## ✨ Features
