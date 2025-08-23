@@ -11,7 +11,7 @@
 
 ## 🚀 Live Demo
 
-**[View Live Demo](https://evenly-app.vercel.app)** *(Coming Soon)*
+**[View Live Demo](https://evenly-taupe.vercel.app/dashboard)**
 
 ## 📱 Screenshots
 
